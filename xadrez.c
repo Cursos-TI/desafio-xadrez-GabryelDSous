@@ -5,7 +5,7 @@
 
 /*
     Eu divide cada peça como uma função para que
-    fique mais facil de dar manutenção conforme 
+    fique mais facil de dar manutenção conforme
     o código cresce
 */
 void main(){
@@ -30,6 +30,9 @@ void main(){
         case 3:
             moverRainha();
         break;
+        case 4:
+            moverCavalo();
+        break;
         default:
             escolha = 0;
         }
@@ -41,7 +44,76 @@ void mostrarMenu(){
     printf("1 - Torre\n");
     printf("2 - Bispo\n");
     printf("3 - Rainha\n");
-    printf("4 - Sair\n");
+    printf("4 - Cavalo\n");
+    printf("5 - Sair\n");
+}
+
+// Função para movimento da peça Cavalo
+void moverCavalo(){
+    // Obtendo os dados de direção e movimento da peça
+    int direcaoUm, direcaoDois;
+    printf("Movendo CAVALO | Direções: o Cavalo se move em \"L\"\n");
+    printf("1 - Direita\n2 - Esquerda\n3 - Cima\n4 - Baixo\n");
+    printf("Primeira Direção: ");
+    scanf("%d", &direcaoUm);
+    if(direcaoUm < 1 || direcaoUm > 4){
+        printf("A peça Cavalo só tem 4 direções iniciais. Moveremos para cima!\n");
+        direcaoUm = 3;
+    }
+    if(direcaoUm == 1 || direcaoUm == 2) printf("1 - Cima\n2 - Baixo\n");
+    else if(direcaoUm == 3 || direcaoUm == 4) printf("3 - Direita\n4 - Esquerda\n");
+    printf("Segunda direção: ");
+    scanf("%d", &direcaoDois);
+    if(direcaoDois < 1 || direcaoDois > 2){
+        printf("A peça Cavalo só tem 2 direções finais. Moveremos para direita!\n");
+        direcaoDois = 1;
+    }
+    // Direção de movimento
+    char movimentoUm[15];
+    switch (direcaoUm){
+    case 1:
+        strcpy(movimentoUm, "Direita");
+    break;
+    case 2:
+        strcpy(movimentoUm, "Esquerda");
+    break;
+    case 3:
+        strcpy(movimentoUm, "Cima");
+    break;
+    case 4:
+        strcpy(movimentoUm, "Baixo");
+    break;
+    default:
+        printf("Existem apenas 4 direções para a peça Bispo! Moveremos a peça para Cima\n");
+        strcpy(movimentoUm, "Cima");
+    }
+    char movimentoDois[15];
+    switch (direcaoDois){
+    case 1:
+        strcpy(movimentoDois, "Cima");
+    break;
+    case 2:
+        strcpy(movimentoDois, "Baixo");
+    break;
+    case 3:
+        strcpy(movimentoDois, "Direita");
+    break;
+    case 4:
+        strcpy(movimentoDois, "Esquerda");
+    break;
+    default:
+        printf("Existem apenas 4 direções para a peça Bispo! Moveremos a peça para Cima\n");
+        strcpy(movimentoDois, "Cima");
+    }
+    printf("Movendo para a direção: %s | %s: \n", movimentoUm, movimentoDois);
+    // Resultado visual do movimento
+    for(int a = 0; a < 1; a++){
+        for(int b = 0; b < 2; b++){
+             printf("%s\n", movimentoUm);
+        }
+        printf("%s\n", movimentoDois);
+    }
+
 }
 
 // Função para movimento da peça Torre
@@ -96,7 +168,7 @@ void moverBispo(){
     scanf("%d", &direcao);
     printf("Movimentos: ");
     scanf("%d", &qtdMovimento);
-    
+
     // Definindo limites para caso o usuário tente um valor que excede o movimento da peça
     if(qtdMovimento < 1 || qtdMovimento > 5){
         printf("A peça Bispo só pode se mover de 1 a 5 vezes!\n");
